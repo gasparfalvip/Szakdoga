@@ -1,0 +1,10 @@
+projection;
+
+
+define behavior for ZGP_C_SCREENING_TYPE_M //alias <alias_name>
+use etag
+{
+  use create;
+  use update;
+  use delete;
+}

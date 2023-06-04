@@ -1,0 +1,59 @@
+managed implementation in class zbp_gp_i_patient_m unique;
+strict ( 1 );
+
+define behavior for ZGP_I_PATIENT_M //alias <alias_name>
+persistent table zgp_patient
+lock master
+authorization master ( global, instance )
+//etag master <field_name>
+early numbering
+{
+
+    field (readonly) Patientid;
+    field (mandatory) Name, Age, Gender;
+
+
+  create;
+  update;
+  delete;
+  association _Result { create; }
+
+  mapping for zgp_patient
+  {
+    Patientid = patientid;
+    Name = name;
+    Age = age;
+    Gender = gender;
+
+  }
+}
+
+define behavior for ZGP_I_SCREENING_RESULTS //alias <alias_name>
+persistent table zgp_scr_results
+lock dependent by _Patient
+authorization dependent by _Patient
+//etag master <field_name>
+early numbering
+{
+
+    field ( readonly ) Patientid;
+    field (readonly) Resultid;
+    field (mandatory) ScrDate, ScrResult, ScreeningtypeId;
+
+  update;
+  delete;
+  association _Patient;
+
+  validation validateScrType on save {field ScreeningtypeId;}
+
+
+
+  mapping for zgp_scr_results
+  {
+    Patientid = patientid;
+    Resultid = resultid;
+    ScreeningtypeId = screeningtype_id;
+    ScrDate = scr_date;
+    ScrResult = scr_result;
+  }
+}

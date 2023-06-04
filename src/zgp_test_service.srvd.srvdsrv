@@ -1,0 +1,9 @@
+@EndUserText.label: 'test service'
+define service ZGP_TEST_SERVICE {
+  expose ZGP_C_SCREENING_M as Screening;
+  expose ZGP_C_SCR_APPOINTMENT as Appointment;
+  expose ZGP_C_PATIENT as Patient;
+  expose ZGP_C_RESULTS as Result;
+  expose ZGP_C_SCREENING_TYPE_M as Screening_type;
+  expose ZGP_I_SCREENING_TYPE_M as Screening_typeI;
+}

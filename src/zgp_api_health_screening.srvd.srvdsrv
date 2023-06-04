@@ -1,0 +1,4 @@
+@EndUserText.label: 'Screening API'
+define service ZGP_API_HEALTH_SCREENING {
+  expose ZGP_A_SCREENING_M;
+}

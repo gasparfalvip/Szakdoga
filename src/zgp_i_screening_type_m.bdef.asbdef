@@ -1,0 +1,21 @@
+managed implementation in class zbp_gp_i_screening_type_m unique;
+//strict ( 1 );
+
+define behavior for ZGP_I_SCREENING_TYPE_M //alias Screening_Types
+persistent table zgp_scrnng_type
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+
+field (readonly:update) screening_type_id;
+
+field (mandatory) name,optimal_frequency,target_age_group_from,target_age_group_to,target_gender;
+
+validation validateAgeGroup on save {field target_age_group_from, target_age_group_to;}
+
+
+  create;
+  update;
+  delete;
+}

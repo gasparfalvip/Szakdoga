@@ -1,0 +1,73 @@
+managed;
+//strict ( 1 );
+
+define behavior for ZGP_I_SCREENING_M //alias <alias_name>
+implementation in class zbp_gp_i_screening_m unique
+persistent table zgp_screening
+lock master
+//authorization master ( instance )
+//etag master <field_name>
+early numbering
+{
+
+field (readonly) screeningid;
+
+field (mandatory) screeningtypeid,institutionid,screening_start_date,screening_end_date;
+
+
+  create;
+  update;
+  delete;
+  association _Appointment{create;}
+
+  validation validateDates on save {field screening_start_date, screening_end_date; }
+  validation validateScrType on save {field screeningtypeid;}
+  validation validateLocation on save {field locationid;}
+  validation validateInstitution on save {field institutionid;}
+
+  mapping for zgp_screening
+  {
+    institutionid = institutionid;
+    locationid = locationid;
+    screening_end_date = screening_end_date;
+    screening_start_date = screening_start_date;
+    screeningid = screeningid;
+    screeningtypeid = screeningtypeid;
+  }
+
+
+}
+
+define behavior for ZGP_I_SCREENING_APPOINTMENT_M //alias <alias_name>
+implementation in class zbp_gp_i_scr_appointment_m  unique
+persistent table zgp_scr_appntmnt
+lock dependent by _Screening
+//authorization dependent
+//etag master <field_name>
+early numbering
+{
+
+field (readonly) screeningid;
+field (readonly) appointmentid;
+
+  //create;
+  update;
+  delete;
+  association _Screening;
+
+  validation validatePatient on save {field patientid;}
+  validation validatePatientType on save {field patientid;}
+  validation validateDate on save {field appointment_date;}
+  validation validateTime on save {field appointment_time;}
+
+  static factory action auto_CreateAppointments[1];
+
+  mapping for zgp_scr_appntmnt
+  {
+    screeningid = screeningid;
+    appointmentid = appointmentid;
+    patientid = patientid;
+    appointment_date = appointment_date;
+    appointment_time = appointment_time;
+  }
+}

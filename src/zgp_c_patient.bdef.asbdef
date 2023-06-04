@@ -1,0 +1,19 @@
+projection;
+strict ( 1 );
+
+define behavior for ZGP_C_PATIENT //alias <alias_name>
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _Result { create; }
+}
+
+define behavior for ZGP_C_RESULTS //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _Patient;
+}

@@ -1,0 +1,53 @@
+@Metadata.layer: #PARTNER
+@UI: {
+ headerInfo: { typeName: 'Screening', typeNamePlural: 'Screenings', title: { type: #STANDARD, value: '_Screening_Type.name' } } }
+
+annotate view ZGP_C_SCREENING_M with
+{
+
+  @UI.facet: [ { id:              'Screening',
+                     purpose:         #STANDARD,
+                     type:            #IDENTIFICATION_REFERENCE,
+                     label:           'Screening',
+                     position:        10 },
+
+
+                     {id: 'Appointment',
+                     purpose: #STANDARD,
+                     type: #LINEITEM_REFERENCE,
+                     label: 'Appointment',
+                     targetElement: '_Appointment',
+                     position: 20
+                     }]
+
+  @UI: {
+        lineItem:       [ { position: 10, importance: #HIGH  } ],
+        identification: [ { position: 10, label: 'Sreening id' } ]}
+  screeningid;
+  @UI: {
+          lineItem:       [ { position: 20, importance: #HIGH  } ],
+          identification: [ { position: 20, label: 'Sreening type id' } ]}
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'ZGP_I_SCREENING_TYPE_M', element: 'screening_type_id'}}]
+  @Search.defaultSearchElement: true
+  screeningtypeid;
+  @UI: {
+          lineItem:       [ { position: 30, importance: #HIGH  } ],
+          identification: [ { position: 30, label: 'Institution id' } ]}
+  institutionid;
+  @UI: {
+          lineItem:       [ { position: 40, importance: #HIGH  } ],
+          identification: [ { position: 40 } ],
+          selectionField: [ { position: 40 } ]}
+  @UI.textArrangement: #TEXT_ONLY
+  @Search.defaultSearchElement: true
+  locationid;
+  @UI: {
+          lineItem:       [ { position: 50, importance: #HIGH  } ],
+          identification: [ { position: 50, label: 'Sreening Start Date' } ]}
+  screening_start_date;
+  @UI: {
+          lineItem:       [ { position: 60, importance: #HIGH  } ],
+          identification: [ { position: 60, label: 'Sreening End Date' } ]}
+  screening_end_date;
+
+}
